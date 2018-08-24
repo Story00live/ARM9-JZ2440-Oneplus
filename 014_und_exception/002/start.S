@@ -16,7 +16,10 @@
 
 __start:
 		b		reset												/* vector 0x00000000 : reset */
-		b		do_undef												/* vector 0x00000004 : undefine commend */
+		ldr		pc,		undef_addr									/* vector 0x00000004 : undefine commend */
+		
+undef_addr:
+		.word	do_undef
 		
 do_undef:
 		/* -执行到这里之前-
@@ -44,6 +47,8 @@ do_undef:
 		
 undef_string:
 		.string	"undefined instruction exception"
+		
+.align 4
 		
 reset:
 		/* -关闭看门狗- */
@@ -105,6 +110,9 @@ reset:
 		/* -清除bss段- */
 		bl		clean_bss
 		
+		ldr		pc,		=sdram
+		
+sdram:
 		/* -初始化串口- */
 		bl		uart0_init
 		
