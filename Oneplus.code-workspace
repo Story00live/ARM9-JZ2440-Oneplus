@@ -41,6 +41,9 @@
 		},
 		{
 			"path": "014_und_exception"
+		},
+		{
+			"path": "015_swi_exception"
 		}
 	],
 	"settings": {
